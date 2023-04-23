@@ -1,10 +1,15 @@
 import React from "react";
 import { Document, Page, Text, StyleSheet, Font } from "@react-pdf/renderer";
 
+// Font.register({
+//   family: "Roboto",
+//   src: "https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf",
+// });
+
 Font.register({
-  family: "Roboto",
-  src: "https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf",
-});
+  family: "Noto Sans KR",
+  src: "https://fonts.gstatic.com/s/notosanskr/v15/Pby6FmXiEBPT4ITbgNA5CgmOsn7uwpYcuH8y.otf",
+})
 
 const styles = StyleSheet.create({
   page: {
@@ -14,7 +19,7 @@ const styles = StyleSheet.create({
   },
   section: {
     fontSize: 12,
-    fontFamily: "Roboto",
+    fontFamily: "Noto Sans KR",
     marginBottom: 20,
     lineHeight: 1.5,
   },
