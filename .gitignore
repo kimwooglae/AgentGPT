@@ -42,3 +42,6 @@ yarn-error.log*
 *.tsbuildinfo
 .idea
 .swc
+
+prisma/db
+prisma/schema.prismae
