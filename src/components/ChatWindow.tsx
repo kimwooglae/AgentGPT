@@ -102,7 +102,7 @@ const ChatWindow = ({
                 message={{
                   type: "system",
                   value:
-                    "> Create an agent by adding a name / goal, and hitting deploy!",
+                    "> 이름/목표를 추가하고 배포를 눌러 에이전트를 만듭니다!",
                 }}
               />
             </Expand>
@@ -111,7 +111,7 @@ const ChatWindow = ({
                 message={{
                   type: "system",
                   value:
-                    "📢 You can provide your own OpenAI API key in the settings tab for increased limits!",
+                    "📢 설정 탭에서 고유한 OpenAI API 키를 제공하여 한도를 높일 수 있습니다!",
                 }}
               />
               {showDonation && (
@@ -287,11 +287,11 @@ const ChatMessage = ({ message }: { message: Message }) => {
 
       {message.type == "thinking" && (
         <span className="italic text-zinc-400">
-          (Restart if this takes more than 30 seconds)
+          {message.value} (30초 이상 걸리면 다시 시작하세요.)
         </span>
       )}
 
-      {message.type == "action" ? (
+      {message.type == "action" && (
         <div className="prose ml-2 max-w-none">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
@@ -300,7 +300,9 @@ const ChatMessage = ({ message }: { message: Message }) => {
             {message.value}
           </ReactMarkdown>
         </div>
-      ) : (
+      )}
+
+      {message.type !== "action" && message.type !== "thinking" &&  (
         <span>{message.value}</span>
       )}
 
@@ -328,9 +330,9 @@ const DonationMessage = () => {
   return (
     <div className="mx-2 my-1 flex flex-col gap-2 rounded-lg border-[2px] border-white/10 bg-blue-500/20 p-1 text-center font-mono hover:border-[#1E88E5]/40 sm:mx-4 sm:p-3 sm:text-base md:flex-row">
       <div className="max-w-none flex-grow">
-        💝️ Help support the advancement of AgentGPT. 💝
+        💝️ AgentGPT의 발전을 지원하세요. 💝
         <br />
-        Please consider sponsoring the project on GitHub.
+        GitHub에서 프로젝트 후원을 고려해 주세요.
       </div>
       <div className="flex items-center justify-center">
         <Button
@@ -362,13 +364,13 @@ const getMessageIcon = (message: Message) => {
 const getMessagePrefix = (message: Message) => {
   switch (message.type) {
     case "goal":
-      return "Embarking on a new goal:";
+      return "[" + message.loopNumber + "]새로운 목표에 도전하기:";
     case "task":
-      return "Added task:";
+      return "[" + message.loopNumber + "]작업 추가:";
     case "thinking":
-      return "Thinking...";
+      return "[" + message.loopNumber + "]생각 중...";
     case "action":
-      return message.info ? message.info : "Executing:";
+      return message.info ? "[" + message.loopNumber + "]" + message.info : "[" + message.loopNumber + "]실행 중:";
   }
 };
 

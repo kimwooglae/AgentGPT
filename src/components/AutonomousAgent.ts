@@ -47,7 +47,7 @@ class AutonomousAgent {
 
   async run() {
     this.sendGoalMessage();
-    this.sendThinkingMessage();
+    this.sendThinkingMessage(this.goal);
 
     // Initialize by getting tasks
     try {
@@ -95,30 +95,38 @@ class AutonomousAgent {
     // Get and remove first task
     this.completedTasks.push(this.tasks[0] || "");
     const currentTask = this.tasks.shift();
-    this.sendThinkingMessage();
+    this.sendThinkingMessage(currentTask as string);
 
     const result = await this.executeTask(currentTask as string);
     this.sendExecutionMessage(currentTask as string, result);
 
     // Wait before adding tasks
     await new Promise((r) => setTimeout(r, TIMEOUT_LONG));
-    this.sendThinkingMessage();
 
     // Add new tasks
     try {
-      const newTasks = await this.getAdditionalTasks(
+      let newTasks = await this.getAdditionalTasks(
         currentTask as string,
         result
       );
+      console.log("completedTasks", this.completedTasks)
+      console.log("remain tasks", this.tasks)
+      console.log("newTasks(before)", newTasks)
+      newTasks = newTasks.filter((task) => {
+        if(this.tasks.includes(task)) return false // remove duplicates
+        if(this.completedTasks.includes(task)) return false // remove duplicates
+        return true
+      });
+      console.log("newTasks(after)", newTasks);
       this.tasks = this.tasks.concat(newTasks);
       for (const task of newTasks) {
         await new Promise((r) => setTimeout(r, TIMOUT_SHORT));
         this.sendTaskMessage(task);
       }
 
-      if (newTasks.length == 0) {
-        this.sendActionMessage("Task marked as complete!");
-      }
+      // if (newTasks.length == 0) {
+      //   this.sendActionMessage("Task marked as complete!");
+      // }
     } catch (e) {
       console.log(e);
       this.sendErrorMessage(
@@ -232,6 +240,7 @@ class AutonomousAgent {
 
   sendMessage(message: Message) {
     if (this.isRunning) {
+      message.loopNumber = this.numLoops as number;
       this.renderMessage(message);
     }
   }
@@ -244,8 +253,8 @@ class AutonomousAgent {
     this.sendMessage({
       type: "system",
       value: !!this.modelSettings.customApiKey
-        ? `This agent has maxed out on loops. To save your wallet, this agent is shutting down. You can configure the number of loops in the advanced settings.`
-        : "We're sorry, because this is a demo, we cannot have our agents running for too long. Note, if you desire longer runs, please provide your own API key in Settings. Shutting down.",
+        ? `이 에이전트의 루프가 최대로 초과되었습니다. 지갑을 저장하기 위해 이 에이전트를 종료합니다. 고급 설정에서 루프 수를 구성할 수 있습니다.`
+        : "죄송합니다만, 데모이므로 에이전트를 너무 오래 실행할 수는 없습니다. 더 오래 실행하려면 설정에서 고유한 API 키를 제공하세요. 종료하기.",
     });
   }
 
@@ -263,8 +272,8 @@ class AutonomousAgent {
     });
   }
 
-  sendThinkingMessage() {
-    this.sendMessage({ type: "thinking", value: "" });
+  sendThinkingMessage(value: string) {
+    this.sendMessage({ type: "thinking", value: value });
   }
 
   sendTaskMessage(task: string) {
@@ -278,7 +287,7 @@ class AutonomousAgent {
   sendExecutionMessage(task: string, execution: string) {
     this.sendMessage({
       type: "action",
-      info: `Executing "${task}"`,
+      info: `"${task}" 타스크 실행`,
       value: execution,
     });
   }

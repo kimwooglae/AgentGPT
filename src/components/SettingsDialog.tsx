@@ -141,9 +141,9 @@ export const SettingsDialog: React.FC<{
       footerButton={<Button onClick={handleSave}>Save</Button>}
     >
       <p>
-        Here you can add your OpenAI API key. This will require you to pay for
-        your own OpenAI usage but give you greater access to AgentGPT! You can
-        additionally select any model OpenAI offers.
+        여기에서 OpenAI API 키를 추가할 수 있습니다. 이렇게 하려면 비용을 지불해야 합니다.
+        비용을 지불해야 하지만, AgentGPT에 더 많이 액세스할 수 있습니다! 다음을 수행할 수 있습니다.
+        OpenAI가 제공하는 모든 모델을 추가로 선택할 수 있습니다.
       </p>
       <br />
       <p
@@ -156,15 +156,13 @@ export const SettingsDialog: React.FC<{
         <FaExclamationCircle className="inline-block" />
         &nbsp;
         <b>
-          To use the GPT-4 model, you need to also provide the API key for
-          GPT-4. You can request for it&nbsp;
+        GPT-4 모델을 사용하려면 GPT-4용 API 키도 제공해야 합니다.&nbsp;
           <a
             href="https://openai.com/waitlist/gpt-4-api"
             className="text-blue-500"
           >
-            here
-          </a>
-          . (ChatGPT Plus subscription will not work)
+            링크
+          </a>에서 요청할 수 있습니다.(ChatGPT Plus 구독이 작동하지 않습니다.)
         </b>
       </p>
       <br />
@@ -198,19 +196,18 @@ export const SettingsDialog: React.FC<{
         <br className="hidden md:inline" />
         <Accordion
           child={advancedSettings}
-          name="Advanced Settings"
+          name="고급 설정"
         ></Accordion>
         <br />
         <strong className="mt-10">
-          NOTE: To get a key, sign up for an OpenAI account and visit the
-          following{" "}
+          NOTE: 키를 받으려면 OpenAI 계정에 가입하고 다음 {" "}
           <a
             href="https://platform.openai.com/account/api-keys"
             className="text-blue-500"
           >
-            link.
-          </a>{" "}
-          This key is only used in the current browser session
+            링크
+          </a>를 방문하세요.{" "}
+          이 키는 현재 브라우저 세션에서만 사용됩니다.
         </strong>
       </div>
     </Dialog>

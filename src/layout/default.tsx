@@ -11,7 +11,7 @@ interface LayoutProps {
 
 const DefaultLayout = (props: LayoutProps) => {
   const description =
-    "Assemble, configure, and deploy autonomous AI Agents in your browser.";
+    "브라우저에서 자율 AI 에이전트를 조립, 구성 및 배포하세요.";
   return (
     <div
       className={clsx(
@@ -38,7 +38,7 @@ const DefaultLayout = (props: LayoutProps) => {
         />
         <meta
           property="og:description"
-          content="Assemble, configure, and deploy autonomous AI Agents in your browser."
+          content="브라우저에서 자율 AI 에이전트를 조립, 구성 및 배포하세요."
         />
         <meta property="og:url" content="https://agentgpt.reworkd.ai/" />
         <meta

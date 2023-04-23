@@ -75,7 +75,7 @@ const Drawer = ({
       >
         <div className="flex flex-col gap-1 overflow-hidden">
           <div className="mb-2 flex justify-center gap-2">
-            My Agent(s)
+            내 에이전트
             <button
               className="z-40 rounded-md border-2 border-white/20 bg-zinc-900 p-2 text-white hover:bg-zinc-700 md:hidden"
               onClick={toggleDrawer}
@@ -96,7 +96,7 @@ const Drawer = ({
 
             {status === "unauthenticated" && (
               <div>
-                Sign in to be able to save agents and manage your account!
+                로그인하면 에이전트를 저장하고 계정을 관리할 수 있습니다!
               </div>
             )}
             {status === "authenticated" && userAgents.length === 0 && (
@@ -123,10 +123,10 @@ const Drawer = ({
           )}
           <DrawerItem
             icon={<FaQuestionCircle />}
-            text="Help"
+            text="도움말"
             onClick={showHelp}
           />
-          <DrawerItem icon={<FaCog />} text="Settings" onClick={showSettings} />
+          <DrawerItem icon={<FaCog />} text="설정" onClick={showSettings} />
           <DrawerItem
             icon={<FaGithub />}
             text="GitHub"

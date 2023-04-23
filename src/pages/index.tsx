@@ -62,7 +62,10 @@ const Home: NextPage = () => {
     setMessages((prev) => [...prev, message]);
   };
 
-  const tasks = messages.filter((message) => message.type === "task");
+  const tasks = messages.filter((message) => message.type === "task").map(task => {
+    if(messages.find(message => message.type === "thinking" && message.value === task.value ) !== undefined) task.value = "[완료]" + task.value;
+    return task;}
+  );
 
   const disableDeployAgent =
     agent != null || isEmptyOrBlank(name) || isEmptyOrBlank(goalInput);
@@ -153,8 +156,7 @@ const Home: NextPage = () => {
               </div>
               <div className="mt-1 text-center font-mono text-[0.7em] font-bold text-white">
                 <p>
-                  Assemble, configure, and deploy autonomous AI Agents in your
-                  browser.
+                브라우저에서 자율 AI 에이전트(autonomous AI Agents)를 조립, 구성 및 배포하세요.
                 </p>
               </div>
             </div>
@@ -191,7 +193,7 @@ const Home: NextPage = () => {
                   left={
                     <>
                       <FaRobot />
-                      <span className="ml-2">Name:</span>
+                      <span className="ml-2">이름:</span>
                     </>
                   }
                   value={name}
@@ -206,14 +208,14 @@ const Home: NextPage = () => {
                   left={
                     <>
                       <FaStar />
-                      <span className="ml-2">Goal:</span>
+                      <span className="ml-2">목표:</span>
                     </>
                   }
                   disabled={agent != null}
                   value={goalInput}
                   onChange={(e) => setGoalInput(e.target.value)}
                   onKeyDown={(e) => handleKeyPress(e)}
-                  placeholder="Make the world a better place."
+                  placeholder="더 나은 세상 만들기."
                   type="textarea"
                 />
               </Expand>
@@ -226,7 +228,7 @@ const Home: NextPage = () => {
                 className="sm:mt-10"
               >
                 {agent == null ? (
-                  "Deploy Agent"
+                  "에이전트 배포"
                 ) : (
                   <>
                     <VscLoading className="animate-spin" size={20} />
@@ -246,7 +248,7 @@ const Home: NextPage = () => {
                     <span className="ml-2">Stopping</span>
                   </>
                 ) : (
-                  <span>Stop agent</span>
+                  <span>에이전트 중지</span>
                 )}
               </Button>
             </Expand>
