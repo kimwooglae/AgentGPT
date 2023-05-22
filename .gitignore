@@ -43,5 +43,12 @@ yarn-error.log*
 .idea
 .swc
 
-prisma/db
-prisma/schema.prismae
+# extracted language files
+/public/locales/$LOCALES
+
+.eslintcache
+
+# Sentry Auth Token
+.sentryclirc
+/volumes/
+schema.prismae
