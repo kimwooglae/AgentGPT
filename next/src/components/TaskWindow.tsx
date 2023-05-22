@@ -42,13 +42,13 @@ export const TaskWindow = ({ visibleOnMobile }: TaskWindowProps) => {
       )}
     >
       <div className="sticky top-0 my-2 flex items-center justify-center gap-2 bg-zinc-900 p-2 text-gray-100 ">
-        <FaListAlt /> {t("Current tasks")}
+        <FaListAlt /> {t("현재 작업")}
       </div>
       <div className="flex h-full w-full flex-col gap-2 px-1 py-1">
         <div className="window-heights flex w-full flex-col gap-2 overflow-y-auto overflow-x-hidden pr-1">
           {tasks.length == 0 && (
             <p className="w-full p-2 text-center text-xs text-gray-300">
-              This window will display agent tasks as they are created.
+              이 창에는 에이전트 작업이 만들어지는 대로 표시됩니다.
             </p>
           )}
           <AnimatePresence>
@@ -69,7 +69,7 @@ export const TaskWindow = ({ visibleOnMobile }: TaskWindowProps) => {
             onClick={handleAddTask}
             disabled={!customTask || agent == null}
           >
-            Add
+            add
           </Button>
         </div>
       </div>

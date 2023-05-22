@@ -65,8 +65,8 @@ model VerificationToken {
 model Agent {
   id         String      @id @default(cuid())
   userId     String
-  name       String      @db.Text
-  goal       String      @db.Text
+  name       String      
+  goal       String      
   deleteDate DateTime?
   createDate DateTime    @default(now())
   user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -80,8 +80,8 @@ model AgentTask {
   agentId    String
   type       String
   status     String?
-  value      String    @db.Text
-  info       String?   @db.Text
+  value      String    
+  info       String?   
   sort       Int
   deleteDate DateTime?
   createDate DateTime  @default(now())
